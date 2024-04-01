@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Command Injection on Mrd0zz</title>
+    <link>//localhost:1313/tags/command-injection/</link>
+    <description>Recent content in Command Injection on Mrd0zz</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 10 Oct 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/command-injection/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cozyhosting</title>
+      <link>//localhost:1313/posts/cozyhosting/</link>
+      <pubDate>Tue, 10 Oct 2023 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/posts/cozyhosting/</guid>
+      <description>&lt;p&gt;Cozyhosting is an easy machine from hackthebox which involved injection a session cookie redirecting to admin page. PLaying with the username field, got an error disclosing ssh command usage in the backend. After trying various bypassing methods sent the command without spaces and got back a shell as app user. Found credentials of postgres user in a jar file and dumped the hashes from the database. Cracked them using jtr and got access to josh user. Further enumerating, ssh can be run by josh user with root permissions.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

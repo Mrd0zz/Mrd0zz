@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Mrd0zz</title>
+    <link>//localhost:1313/posts/</link>
+    <description>Recent content in Posts on Mrd0zz</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 29 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PNPT Review 2024</title>
+      <link>//localhost:1313/posts/pnpt_review/</link>
+      <pubDate>Fri, 29 Mar 2024 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/posts/pnpt_review/</guid>
+      <description>&lt;p&gt;I recently passed the PNPT exam and in this article I will share my views on the exam, course material and if you should take it or not.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>eWPTv2 Review 2023</title>
+      <link>//localhost:1313/posts/ewptv2_review/</link>
+      <pubDate>Sat, 25 Nov 2023 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/posts/ewptv2_review/</guid>
+      <description>&lt;p&gt;I recently passed the eWPTv2 exam that was released in October this year. This was an enhanced version of the v1 exam which included some old &amp;amp; obsolete topics, mostly not relevant in today’s scenario. In this article I will share my views on the exam, course material and if you should take it or not.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Pilgrimage</title>
+      <link>//localhost:1313/posts/pilgrimage/</link>
+      <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/posts/pilgrimage/</guid>
+      <description>&lt;p&gt;Pilgrimage is an easy machine from hackthebox which involved finding a git directory leading to a arbitrary file read vulnerability in ImageMagick. Using that read the databse file and got credentials of emily user. Found a folder named binwalk in emily&amp;rsquo;s directory and the binary version was vulnerable to rce. One of the script malwarescan.sh was running as root user and the malicious png file generated from binwalk exploit was to be placed under the mentioned directory in this script to get shell as root user.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Sau</title>
+      <link>//localhost:1313/posts/sau/</link>
+      <pubDate>Thu, 12 Oct 2023 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/posts/sau/</guid>
+      <description>&lt;p&gt;Sau is an easy machine from hackthebox which involved exploiting a SSRF vulnerability leading to another service disclosure Maltrail. This service was vulnerable to command injection upon exploiting gave us shell as puma user. Upon further enumeration, systemctl can be run by puma user with root permissions.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Cozyhosting</title>
+      <link>//localhost:1313/posts/cozyhosting/</link>
+      <pubDate>Tue, 10 Oct 2023 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/posts/cozyhosting/</guid>
+      <description>&lt;p&gt;Cozyhosting is an easy machine from hackthebox which involved injection a session cookie redirecting to admin page. PLaying with the username field, got an error disclosing ssh command usage in the backend. After trying various bypassing methods sent the command without spaces and got back a shell as app user. Found credentials of postgres user in a jar file and dumped the hashes from the database. Cracked them using jtr and got access to josh user. Further enumerating, ssh can be run by josh user with root permissions.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

