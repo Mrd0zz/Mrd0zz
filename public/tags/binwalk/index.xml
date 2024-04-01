@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Binwalk on Mrd0zz</title>
-    <link>//localhost:1313/tags/binwalk/</link>
+    <link>http://localhost:1313/tags/binwalk/</link>
     <description>Recent content in Binwalk on Mrd0zz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 15 Oct 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:1313/tags/binwalk/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/binwalk/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Pilgrimage</title>
-      <link>//localhost:1313/posts/pilgrimage/</link>
+      <link>http://localhost:1313/posts/pilgrimage/</link>
       <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/posts/pilgrimage/</guid>
+      <guid>http://localhost:1313/posts/pilgrimage/</guid>
       <description>&lt;p&gt;Pilgrimage is an easy machine from hackthebox which involved finding a git directory leading to a arbitrary file read vulnerability in ImageMagick. Using that read the databse file and got credentials of emily user. Found a folder named binwalk in emily&amp;rsquo;s directory and the binary version was vulnerable to rce. One of the script malwarescan.sh was running as root user and the malicious png file generated from binwalk exploit was to be placed under the mentioned directory in this script to get shell as root user.&lt;/p&gt;</description>
     </item>
   </channel>

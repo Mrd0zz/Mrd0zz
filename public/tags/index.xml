@@ -2,94 +2,94 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Mrd0zz</title>
-    <link>//localhost:1313/tags/</link>
+    <link>http://localhost:1313/tags/</link>
     <description>Recent content in Tags on Mrd0zz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 29 Mar 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Active Directory Exploitation</title>
-      <link>//localhost:1313/tags/active-directory-exploitation/</link>
+      <link>http://localhost:1313/tags/active-directory-exploitation/</link>
       <pubDate>Fri, 29 Mar 2024 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/active-directory-exploitation/</guid>
+      <guid>http://localhost:1313/tags/active-directory-exploitation/</guid>
       <description></description>
     </item>
     <item>
       <title>OSINT</title>
-      <link>//localhost:1313/tags/osint/</link>
+      <link>http://localhost:1313/tags/osint/</link>
       <pubDate>Fri, 29 Mar 2024 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/osint/</guid>
+      <guid>http://localhost:1313/tags/osint/</guid>
       <description></description>
     </item>
     <item>
       <title>Penetration Testing</title>
-      <link>//localhost:1313/tags/penetration-testing/</link>
+      <link>http://localhost:1313/tags/penetration-testing/</link>
       <pubDate>Fri, 29 Mar 2024 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/penetration-testing/</guid>
+      <guid>http://localhost:1313/tags/penetration-testing/</guid>
       <description></description>
     </item>
     <item>
       <title>OWASP Top 10</title>
-      <link>//localhost:1313/tags/owasp-top-10/</link>
+      <link>http://localhost:1313/tags/owasp-top-10/</link>
       <pubDate>Sat, 25 Nov 2023 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/owasp-top-10/</guid>
+      <guid>http://localhost:1313/tags/owasp-top-10/</guid>
       <description></description>
     </item>
     <item>
       <title>Web App Testing</title>
-      <link>//localhost:1313/tags/web-app-testing/</link>
+      <link>http://localhost:1313/tags/web-app-testing/</link>
       <pubDate>Sat, 25 Nov 2023 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/web-app-testing/</guid>
+      <guid>http://localhost:1313/tags/web-app-testing/</guid>
       <description></description>
     </item>
     <item>
       <title>Binwalk</title>
-      <link>//localhost:1313/tags/binwalk/</link>
+      <link>http://localhost:1313/tags/binwalk/</link>
       <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/binwalk/</guid>
+      <guid>http://localhost:1313/tags/binwalk/</guid>
       <description></description>
     </item>
     <item>
       <title>ImageMagick</title>
-      <link>//localhost:1313/tags/imagemagick/</link>
+      <link>http://localhost:1313/tags/imagemagick/</link>
       <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/imagemagick/</guid>
+      <guid>http://localhost:1313/tags/imagemagick/</guid>
       <description></description>
     </item>
     <item>
       <title>CVE-2023-27163</title>
-      <link>//localhost:1313/tags/cve-2023-27163/</link>
+      <link>http://localhost:1313/tags/cve-2023-27163/</link>
       <pubDate>Thu, 12 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/cve-2023-27163/</guid>
+      <guid>http://localhost:1313/tags/cve-2023-27163/</guid>
       <description></description>
     </item>
     <item>
       <title>Maltrail</title>
-      <link>//localhost:1313/tags/maltrail/</link>
+      <link>http://localhost:1313/tags/maltrail/</link>
       <pubDate>Thu, 12 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/maltrail/</guid>
+      <guid>http://localhost:1313/tags/maltrail/</guid>
       <description></description>
     </item>
     <item>
       <title>Command Injection</title>
-      <link>//localhost:1313/tags/command-injection/</link>
+      <link>http://localhost:1313/tags/command-injection/</link>
       <pubDate>Tue, 10 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/command-injection/</guid>
+      <guid>http://localhost:1313/tags/command-injection/</guid>
       <description></description>
     </item>
     <item>
       <title>JTR</title>
-      <link>//localhost:1313/tags/jtr/</link>
+      <link>http://localhost:1313/tags/jtr/</link>
       <pubDate>Tue, 10 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/jtr/</guid>
+      <guid>http://localhost:1313/tags/jtr/</guid>
       <description></description>
     </item>
     <item>
       <title>Postgresql</title>
-      <link>//localhost:1313/tags/postgresql/</link>
+      <link>http://localhost:1313/tags/postgresql/</link>
       <pubDate>Tue, 10 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/postgresql/</guid>
+      <guid>http://localhost:1313/tags/postgresql/</guid>
       <description></description>
     </item>
   </channel>
