@@ -15,4 +15,4 @@ Here are some ideas to get you started:
 - ⚡ Fun fact: ...
 -->
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/f682e394-934d-4f14-91d7-8c5d9ccc5ee8/deploy-status)](https://app.netlify.com/sites/mrd0zz/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/f682e394-934d-4f14-91d7-8c5d9ccc5ee8/deploy-status)](https://app.netlify.com/sites/mrd0zz/deploy-status?branch=master)
