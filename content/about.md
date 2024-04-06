@@ -4,15 +4,15 @@ layout: default
 
 ## Experience (July 22 - Present)
 
-Information Security Engineer at Hughes Systique Corporation
+Information Security Engineer at Hughes Systique Corporation. My day to day activities include:
 
 <!--more-->
 
-- Endpoint Protector Administration and Device Control
+- Vulnerability Management using Tenable IO
+- Endpoint Protector (EPP) Administration and Device Control
 - L1 SOC Analyst handling daily DLP incidents and escalations
-- Vulnerability Analysis using SecPod SanerNow
-- Aligning IT Security activities with ISO/IEC 27001 Standard
-- Conducting organization wide Phishing Campaign
+- Aligning IT activities with ISO/IEC 27001 (ISMS) Standard 
+- Scheduling and managing periodic phishing campaigns 
 
 ## Certifications
 
