@@ -32,7 +32,7 @@ menu:
 params:
   abbrDateFmt: "Jan 2"
   author: "Rohan Sharma"
-  brandIconFile: "images/home_img.jpg"
+  brandIconFile: ""
   dateFmt: "2006-01-02"
   ##
   ## Options for overriding theme or page defaults
