@@ -27,7 +27,8 @@
     font-weight: normal;
   }
   #brand .icon {
-    width: 120px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
   }
   footer {

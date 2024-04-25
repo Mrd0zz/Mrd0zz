@@ -4,91 +4,91 @@
     <title>Tags on Mrd0zz</title>
     <link>http://localhost:1313/tags/</link>
     <description>Recent content in Tags on Mrd0zz</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo 0.125.2</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 29 Mar 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Active Directory Exploitation</title>
       <link>http://localhost:1313/tags/active-directory-exploitation/</link>
-      <pubDate>Fri, 29 Mar 2024 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/tags/active-directory-exploitation/</guid>
       <description></description>
     </item>
     <item>
       <title>OSINT</title>
       <link>http://localhost:1313/tags/osint/</link>
-      <pubDate>Fri, 29 Mar 2024 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/tags/osint/</guid>
       <description></description>
     </item>
     <item>
       <title>Penetration Testing</title>
       <link>http://localhost:1313/tags/penetration-testing/</link>
-      <pubDate>Fri, 29 Mar 2024 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/tags/penetration-testing/</guid>
       <description></description>
     </item>
     <item>
       <title>OWASP Top 10</title>
       <link>http://localhost:1313/tags/owasp-top-10/</link>
-      <pubDate>Sat, 25 Nov 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/tags/owasp-top-10/</guid>
       <description></description>
     </item>
     <item>
       <title>Web App Testing</title>
       <link>http://localhost:1313/tags/web-app-testing/</link>
-      <pubDate>Sat, 25 Nov 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/tags/web-app-testing/</guid>
       <description></description>
     </item>
     <item>
       <title>Binwalk</title>
       <link>http://localhost:1313/tags/binwalk/</link>
-      <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/tags/binwalk/</guid>
       <description></description>
     </item>
     <item>
       <title>ImageMagick</title>
       <link>http://localhost:1313/tags/imagemagick/</link>
-      <pubDate>Sun, 15 Oct 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/tags/imagemagick/</guid>
       <description></description>
     </item>
     <item>
       <title>CVE-2023-27163</title>
       <link>http://localhost:1313/tags/cve-2023-27163/</link>
-      <pubDate>Thu, 12 Oct 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/tags/cve-2023-27163/</guid>
       <description></description>
     </item>
     <item>
       <title>Maltrail</title>
       <link>http://localhost:1313/tags/maltrail/</link>
-      <pubDate>Thu, 12 Oct 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/tags/maltrail/</guid>
       <description></description>
     </item>
     <item>
       <title>Command Injection</title>
       <link>http://localhost:1313/tags/command-injection/</link>
-      <pubDate>Tue, 10 Oct 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/tags/command-injection/</guid>
       <description></description>
     </item>
     <item>
       <title>JTR</title>
       <link>http://localhost:1313/tags/jtr/</link>
-      <pubDate>Tue, 10 Oct 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/tags/jtr/</guid>
       <description></description>
     </item>
     <item>
       <title>Postgresql</title>
       <link>http://localhost:1313/tags/postgresql/</link>
-      <pubDate>Tue, 10 Oct 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/tags/postgresql/</guid>
       <description></description>
     </item>
