@@ -2,7 +2,7 @@
 baseURL: 'https://r0han.netlify.app/'
 languageCode: en-us
 theme: smigle
-title: Mrd0zz
+title: Rohan Sharma
 menu:
   main: # Change menu as needed
     - identifier: home

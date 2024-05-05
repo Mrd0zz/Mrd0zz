@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Htb-Easy on Mrd0zz</title>
+    <title>Htb-Easy on Rohan Sharma</title>
     <link>http://localhost:1313/categories/htb-easy/</link>
-    <description>Recent content in Htb-Easy on Mrd0zz</description>
-    <generator>Hugo 0.125.2</generator>
+    <description>Recent content in Htb-Easy on Rohan Sharma</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 15 Oct 2023 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/categories/htb-easy/index.xml" rel="self" type="application/rss+xml" />
