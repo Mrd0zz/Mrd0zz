@@ -44,7 +44,7 @@ params:
   #readingSpeedMax: 175 # Use to set custom reading speed range
   social:
     - name: GitHub
-      url: https://github.com/Mrd0zz
+      url: https://github.com/r0-han
     - name: Linkedin
       url: https://www.linkedin.com/in/rohans21/
     - name: Twitter
